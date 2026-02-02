@@ -1,113 +1,216 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>💘 Para Skar</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #ffb3c6, #ffd6e0);
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      overflow: hidden;
-    }
-    .card {
-      background: white;
-      padding: 30px;
-      border-radius: 22px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
-      max-width: 340px;
-      position: relative;
-      z-index: 2;
-    }
-    h1 {
-      color: #ff4d6d;
-    }
-    p {
-      color: #555;
-    }
-    button {
-      padding: 12px 22px;
-      font-size: 16px;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      margin: 10px;
-    }
-    #yes {
-      background: #ff4d6d;
-      color: white;
-    }
-    #no {
-      background: #adb5bd;
-      color: white;
-      position: absolute;
-      font-size: 14px;
-    }
-    .music-hint {
-      font-size: 12px;
-      color: #777;
-      margin-top: 10px;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>💖 Para Skar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: 'Segoe UI', 'Poppins', Arial, sans-serif;
+  background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Romantic glow */
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(255,255,255,0.35), transparent 60%);
+  z-index: 0;
+}
+
+/* Card */
+.card {
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(6px);
+  padding: 40px 30px;
+  border-radius: 28px;
+  width: 90%;
+  max-width: 420px;
+  text-align: center;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+  animation: fadeIn 1.2s ease;
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(25px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+h1 {
+  color: #e25577;
+  margin-bottom: 8px;
+  font-size: 28px;
+}
+
+.subtitle {
+  color: #777;
+  font-size: 14px;
+  margin-bottom: 22px;
+}
+
+.question {
+  font-size: 22px;
+  color: #444;
+  margin-bottom: 28px;
+}
+
+/* Buttons */
+button {
+  padding: 14px 28px;
+  font-size: 16px;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  margin: 6px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#yes {
+  background: linear-gradient(135deg,#ff5f8f,#ff8fab);
+  color: white;
+  box-shadow: 0 10px 30px rgba(255,95,143,0.45);
+}
+
+#yes:hover {
+  transform: translateY(-2px);
+}
+
+#no {
+  background: #b0b5bd;
+  color: white;
+  position: absolute;
+  font-size: 14px;
+}
+
+/* Music hint */
+.music-hint {
+  font-size: 12px;
+  color: #888;
+  margin-top: 14px;
+}
+
+/* Floating hearts */
+.heart {
+  position: absolute;
+  bottom: -30px;
+  font-size: 18px;
+  opacity: 0.6;
+  animation: floatUp linear infinite;
+  z-index: 1;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 0.6;
+  }
+  to {
+    transform: translateY(-120vh) scale(1.4);
+    opacity: 0;
+  }
+}
+</style>
 </head>
+
 <body>
 
-  <!-- Música suave -->
-  <audio id="music" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7c6c4a6f8c.mp3?filename=soft-romantic-piano-110624.mp3" type="audio/mpeg">
-  </audio>
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7c6c4a6f8c.mp3?filename=soft-romantic-piano-110624.mp3" type="audio/mpeg">
+</audio>
 
-  <div class="card">
-    <h1>💖 Skar 💖</h1>
-    <p>Pregunta seria (no tanto):</p>
-    <h2>¿Quieres ser mi San Valentín? 🌹</h2>
-    <button id="yes" onclick="aceptar()">Sí obvio 💘</button>
-    <div class="music-hint">(si no suena la música, toca la pantalla 🎶)</div>
+<div class="card">
+  <h1>💖 Skar</h1>
+  <div class="subtitle">esto es solo para ti</div>
+
+  <div class="question">
+    ¿Quieres ser mi San Valentín? 🌹
   </div>
 
-  <button id="no">Ni lo intentes 😏</button>
+  <button id="yes" onclick="aceptar()">Sí, me encantaría 💘</button>
 
-  <script>
-    const noBtn = document.getElementById("no");
-    const music = document.getElementById("music");
+  <div class="music-hint">
+    toca la pantalla y deja que suene 🎶
+  </div>
+</div>
 
-    // Activar música al primer click
-    document.addEventListener("click", () => {
-      music.volume = 0.3;
-      music.play();
-    }, { once: true });
+<button id="no">Ni lo intentes 😏</button>
 
-    // Botón que huye
-    noBtn.addEventListener("mouseover", () => {
-      const x = Math.random() * (window.innerWidth - 140);
-      const y = Math.random() * (window.innerHeight - 60);
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
-    });
+<script>
+const noBtn = document.getElementById("no");
+const music = document.getElementById("music");
 
-    function aceptar() {
-      document.body.innerHTML = `
-        <div style="
-          display:flex;
-          justify-content:center;
-          align-items:center;
-          height:100vh;
-          font-family:Arial;
-          background:linear-gradient(135deg,#ff4d6d,#ff8fab);
-          color:white;
-          text-align:center;
-          padding:20px;">
-          <h1>💞 Sabía que dirías que sí, Skar 💞<br><br>
-          Prometo risas, cariño<br>
-          y cero intentos de huir 😌❤️</h1>
-        </div>
-      `;
-    }
-  </script>
+// Música suave
+document.addEventListener("click", () => {
+  music.volume = 0.25;
+  music.play();
+}, { once: true });
+
+// Botón imposible
+noBtn.addEventListener("mouseover", () => {
+  const x = Math.random() * (window.innerWidth - 160);
+  const y = Math.random() * (window.innerHeight - 70);
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+});
+
+// Corazones elegantes
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "💗";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (6 + Math.random() * 4) + "s";
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 10000);
+}, 800);
+
+// Final romántico
+function aceptar() {
+  document.body.innerHTML = `
+  <div style="
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:25px;
+    background:linear-gradient(135deg,#ff8fab,#fbc2eb);
+    color:white;
+    font-family:'Segoe UI',Arial;">
+    <h1 style="
+      font-size:28px;
+      line-height:1.4;
+      animation:fadeIn 1.2s ease;">
+      💞 Gracias por decir que sí, Skar 💞<br><br>
+      Prometo cuidarte,<br>
+      hacerte reír,<br>
+      y que este sea<br>
+      un San Valentín bonito 🌹
+    </h1>
+  </div>`;
+}
+</script>
 
 </body>
 </html>
