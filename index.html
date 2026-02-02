@@ -4,213 +4,110 @@
 <meta charset="UTF-8">
 <title>💖 Para Skar</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
   height: 100vh;
-  font-family: 'Segoe UI', 'Poppins', Arial, sans-serif;
-  background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
-/* Romantic glow */
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Efecto de estrellas de fondo */
+.stars {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle linear infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+/* Glow suave */
 body::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at top, rgba(255,255,255,0.35), transparent 60%);
+  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.15), transparent 70%);
   z-index: 0;
+  pointer-events: none;
 }
 
-/* Card */
+/* Card principal */
 .card {
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: blur(6px);
-  padding: 40px 30px;
-  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  padding: 50px 40px;
+  border-radius: 30px;
   width: 90%;
-  max-width: 420px;
+  max-width: 450px;
   text-align: center;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.25);
-  animation: fadeIn 1.2s ease;
+  box-shadow: 
+    0 20px 60px rgba(0,0,0,0.3),
+    0 0 100px rgba(255,255,255,0.1) inset;
+  animation: cardEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
   z-index: 2;
+  border: 2px solid rgba(255,255,255,0.3);
 }
 
-@keyframes fadeIn {
+@keyframes cardEntrance {
   from {
     opacity: 0;
-    transform: translateY(25px) scale(0.96);
+    transform: translateY(50px) scale(0.9) rotateX(20deg);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0) scale(1) rotateX(0);
   }
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 30px;
+  padding: 2px;
+  background: linear-gradient(45deg, #ff6b6b, #ee5a6f, #c06c84, #6c5b7b, #355c7d);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.3;
 }
 
 h1 {
-  color: #e25577;
-  margin-bottom: 8px;
-  font-size: 28px;
-}
-
-.subtitle {
-  color: #777;
-  font-size: 14px;
-  margin-bottom: 22px;
-}
-
-.question {
-  font-size: 22px;
-  color: #444;
-  margin-bottom: 28px;
-}
-
-/* Buttons */
-button {
-  padding: 14px 28px;
-  font-size: 16px;
-  border: none;
-  border-radius: 16px;
-  cursor: pointer;
-  margin: 6px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-#yes {
-  background: linear-gradient(135deg,#ff5f8f,#ff8fab);
-  color: white;
-  box-shadow: 0 10px 30px rgba(255,95,143,0.45);
-}
-
-#yes:hover {
-  transform: translateY(-2px);
-}
-
-#no {
-  background: #b0b5bd;
-  color: white;
-  position: absolute;
-  font-size: 14px;
-}
-
-/* Music hint */
-.music-hint {
-  font-size: 12px;
-  color: #888;
-  margin-top: 14px;
-}
-
-/* Floating hearts */
-.heart {
-  position: absolute;
-  bottom: -30px;
-  font-size: 18px;
-  opacity: 0.6;
-  animation: floatUp linear infinite;
-  z-index: 1;
-}
-
-@keyframes floatUp {
-  from {
-    transform: translateY(0) scale(1);
-    opacity: 0.6;
-  }
-  to {
-    transform: translateY(-120vh) scale(1.4);
-    opacity: 0;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<audio id="music" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7c6c4a6f8c.mp3?filename=soft-romantic-piano-110624.mp3" type="audio/mpeg">
-</audio>
-
-<div class="card">
-  <h1>💖 Skar</h1>
-  <div class="subtitle">esto es solo para ti</div>
-
-  <div class="question">
-    ¿Quieres ser mi San Valentín? 🌹
-  </div>
-
-  <button id="yes" onclick="aceptar()">Sí, me encantaría 💘</button>
-
-  <div class="music-hint">
-    toca la pantalla y deja que suene 🎶
-  </div>
-</div>
-
-<button id="no">Ni lo intentes 😏</button>
-
-<script>
-const noBtn = document.getElementById("no");
-const music = document.getElementById("music");
-
-// Música suave
-document.addEventListener("click", () => {
-  music.volume = 0.25;
-  music.play();
-}, { once: true });
-
-// Botón imposible
-noBtn.addEventListener("mouseover", () => {
-  const x = Math.random() * (window.innerWidth - 160);
-  const y = Math.random() * (window.innerHeight - 70);
-  noBtn.style.left = x + "px";
-  noBtn.style.top = y + "px";
-});
-
-// Corazones elegantes
-setInterval(() => {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerHTML = "💗";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.animationDuration = (6 + Math.random() * 4) + "s";
-  document.body.appendChild(heart);
-
-  setTimeout(() => heart.remove(), 10000);
-}, 800);
-
-// Final romántico
-function aceptar() {
-  document.body.innerHTML = `
-  <div style="
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:25px;
-    background:linear-gradient(135deg,#ff8fab,#fbc2eb);
-    color:white;
-    font-family:'Segoe UI',Arial;">
-    <h1 style="
-      font-size:28px;
-      line-height:1.4;
-      animation:fadeIn 1.2s ease;">
-      💞 Gracias por decir que sí, Skar 💞<br><br>
-      Prometo cuidarte,<br>
-      hacerte reír,<br>
-      y que este sea<br>
-      un San Valentín bonito 🌹
-    </h1>
-  </div>`;
-}
-</script>
-
-</body>
-</html>
+  background: linear-gradient(135deg, #ee5a6f 0%, #f093fb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
