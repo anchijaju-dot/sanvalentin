@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>💘 Para Skar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ffb3c6, #ffd6e0);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 22px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+      max-width: 340px;
+      position: relative;
+      z-index: 2;
+    }
+    h1 {
+      color: #ff4d6d;
+    }
+    p {
+      color: #555;
+    }
+    button {
+      padding: 12px 22px;
+      font-size: 16px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      margin: 10px;
+    }
+    #yes {
+      background: #ff4d6d;
+      color: white;
+    }
+    #no {
+      background: #adb5bd;
+      color: white;
+      position: absolute;
+      font-size: 14px;
+    }
+    .music-hint {
+      font-size: 12px;
+      color: #777;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Música suave -->
+  <audio id="music" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7c6c4a6f8c.mp3?filename=soft-romantic-piano-110624.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="card">
+    <h1>💖 Skar 💖</h1>
+    <p>Pregunta seria (no tanto):</p>
+    <h2>¿Quieres ser mi San Valentín? 🌹</h2>
+    <button id="yes" onclick="aceptar()">Sí obvio 💘</button>
+    <div class="music-hint">(si no suena la música, toca la pantalla 🎶)</div>
+  </div>
+
+  <button id="no">Ni lo intentes 😏</button>
+
+  <script>
+    const noBtn = document.getElementById("no");
+    const music = document.getElementById("music");
+
+    // Activar música al primer click
+    document.addEventListener("click", () => {
+      music.volume = 0.3;
+      music.play();
+    }, { once: true });
+
+    // Botón que huye
+    noBtn.addEventListener("mouseover", () => {
+      const x = Math.random() * (window.innerWidth - 140);
+      const y = Math.random() * (window.innerHeight - 60);
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    });
+
+    function aceptar() {
+      document.body.innerHTML = `
+        <div style="
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          height:100vh;
+          font-family:Arial;
+          background:linear-gradient(135deg,#ff4d6d,#ff8fab);
+          color:white;
+          text-align:center;
+          padding:20px;">
+          <h1>💞 Sabía que dirías que sí, Skar 💞<br><br>
+          Prometo risas, cariño<br>
+          y cero intentos de huir 😌❤️</h1>
+        </div>
+      `;
+    }
+  </script>
+
+</body>
+</html>
