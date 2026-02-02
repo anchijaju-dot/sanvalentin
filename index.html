@@ -33,12 +33,12 @@ body {
   50% { background-position: 100% 50%; }
 }
 
-/* Efecto de estrellas de fondo */
 .stars {
   position: absolute;
   width: 100%;
   height: 100%;
   overflow: hidden;
+  pointer-events: none;
 }
 
 .star {
@@ -55,7 +55,6 @@ body {
   50% { opacity: 1; }
 }
 
-/* Glow suave */
 body::before {
   content: "";
   position: absolute;
@@ -65,7 +64,6 @@ body::before {
   pointer-events: none;
 }
 
-/* Card principal */
 .card {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
@@ -86,28 +84,415 @@ body::before {
 @keyframes cardEntrance {
   from {
     opacity: 0;
-    transform: translateY(50px) scale(0.9) rotateX(20deg);
+    transform: translateY(50px) scale(0.9);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1) rotateX(0);
+    transform: translateY(0) scale(1);
   }
-}
-
-.card::before {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  border-radius: 30px;
-  padding: 2px;
-  background: linear-gradient(45deg, #ff6b6b, #ee5a6f, #c06c84, #6c5b7b, #355c7d);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0.3;
 }
 
 h1 {
   background: linear-gradient(135deg, #ee5a6f 0%, #f093fb 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 10px;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  animation: titlePulse 2s ease-in-out infinite;
+}
+
+@keyframes titlePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.subtitle {
+  color: #888;
+  font-size: 14px;
+  margin-bottom: 30px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.question {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 35px;
+  font-weight: 600;
+  line-height: 1.5;
+  animation: questionFloat 3s ease-in-out infinite;
+}
+
+@keyframes questionFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+.button-container {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+button {
+  padding: 16px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+#yes {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  box-shadow: 
+    0 10px 30px rgba(245, 87, 108, 0.4),
+    0 0 20px rgba(240, 147, 251, 0.3);
+  position: relative;
+  z-index: 1;
+}
+
+#yes:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 
+    0 15px 40px rgba(245, 87, 108, 0.5),
+    0 0 30px rgba(240, 147, 251, 0.4);
+}
+
+#yes:active {
+  transform: translateY(-1px) scale(1.02);
+}
+
+#no {
+  background: linear-gradient(135deg, #b4b4b4 0%, #8e8e8e 100%);
+  color: white;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+#no:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+}
+
+.music-hint {
+  font-size: 13px;
+  color: #999;
+  margin-top: 25px;
+  font-weight: 300;
+  animation: blink 2s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.heart {
+  position: absolute;
+  bottom: -50px;
+  font-size: 20px;
+  opacity: 0;
+  animation: floatUp linear infinite;
+  z-index: 1;
+  filter: drop-shadow(0 0 3px rgba(255,105,180,0.5));
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-120vh) translateX(100px) rotate(360deg) scale(1.5);
+    opacity: 0;
+  }
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #f0f;
+  animation: confettiFall linear forwards;
+  z-index: 100;
+  pointer-events: none;
+}
+
+@keyframes confettiFall {
+  from {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.final-screen {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+}
+
+.final-content {
+  animation: fadeInScale 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+  max-width: 600px;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.final-content h1 {
+  font-size: 32px;
+  line-height: 1.6;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  -webkit-text-fill-color: white;
+  color: white;
+}
+
+.final-content p {
+  font-size: 20px;
+  line-height: 1.8;
+  font-weight: 400;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.final-content small {
+  font-size: 16px;
+  opacity: 0.9;
+  font-style: italic;
+}
+
+@media (max-width: 480px) {
+  .card { padding: 40px 25px; }
+  h1 { font-size: 28px; }
+  .question { font-size: 20px; }
+  button { padding: 14px 24px; font-size: 15px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7c6c4a6f8c.mp3?filename=soft-romantic-piano-110624.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card">
+  <h1>💖 Skar 💖</h1>
+  <div class="subtitle">esto es solo para ti</div>
+
+  <div class="question">
+    ¿Quieres ser mi San Valentín? 🌹
+  </div>
+
+  <div class="button-container">
+    <button id="yes" onclick="aceptar()">Sí, me encantaría 💘</button>
+    <button id="no">Mmm... no sé 🤔</button>
+  </div>
+
+  <div class="music-hint">
+    🎵 toca la pantalla y deja que suene 🎶
+  </div>
+</div>
+
+<script>
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+const music = document.getElementById("music");
+
+const noMessages = [
+  "Mmm... no sé 🤔",
+  "¿Estás segura? 🥺",
+  "Piénsalo mejor 💭",
+  "Dale otra oportunidad 🙏",
+  "No seas malita 😢",
+  "Por favorcito 🥹",
+  "Solo di que sí 💝",
+  "Ya casi... 😅",
+  "Venga, di que sí 💕"
+];
+
+let noClickCount = 0;
+
+document.addEventListener("click", () => {
+  music.volume = 0.3;
+  music.play().catch(e => console.log("Audio no disponible"));
+}, { once: true });
+
+function createStars() {
+  const starsContainer = document.querySelector('.stars');
+  for (let i = 0; i < 50; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.animationDuration = (2 + Math.random() * 3) + 's';
+    star.style.animationDelay = Math.random() * 3 + 's';
+    starsContainer.appendChild(star);
+  }
+}
+createStars();
+
+noBtn.addEventListener("click", () => {
+  noClickCount++;
+  
+  if (noClickCount < noMessages.length) {
+    noBtn.textContent = noMessages[noClickCount];
+  }
+  
+  const newSize = Math.max(0.5, 1 - (noClickCount * 0.1));
+  noBtn.style.transform = `scale(${newSize})`;
+  
+  const yesSize = 1 + (noClickCount * 0.1);
+  yesBtn.style.transform = `scale(${yesSize})`;
+  
+  if (noClickCount >= 8) {
+    noBtn.style.opacity = '0';
+    noBtn.style.pointerEvents = 'none';
+    noBtn.textContent = '😭';
+  }
+});
+
+noBtn.addEventListener("mouseenter", () => {
+  if (noClickCount < 8) {
+    const randomX = Math.random() > 0.5 ? 50 : -50;
+    const randomY = Math.random() > 0.5 ? 30 : -30;
+    noBtn.style.transform += ` translate(${randomX}px, ${randomY}px)`;
+    
+    setTimeout(() => {
+      noBtn.style.transform = noBtn.style.transform.replace(/translate\([^)]+\)/, '');
+    }, 500);
+  }
+});
+
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  const hearts = ['💗', '💖', '💕', '💝', '💓'];
+  heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (15 + Math.random() * 10) + "px";
+  heart.style.animationDuration = (8 + Math.random() * 4) + "s";
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 12000);
+}, 600);
+
+function createConfetti() {
+  const colors = ['#ff6b6b', '#f093fb', '#4facfe', '#43e97b', '#feca57'];
+  
+  for (let i = 0; i < 100; i++) {
+    setTimeout(() => {
+      const confetti = document.createElement('div');
+      confetti.className = 'confetti';
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.top = '-10px';
+      confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      confetti.style.animationDuration = (2 + Math.random() * 3) + 's';
+      confetti.style.width = (5 + Math.random() * 10) + 'px';
+      confetti.style.height = (5 + Math.random() * 10) + 'px';
+      confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+      document.body.appendChild(confetti);
+      
+      setTimeout(() => confetti.remove(), 5000);
+    }, i * 30);
+  }
+}
+
+function aceptar() {
+  createConfetti();
+  
+  setTimeout(() => {
+    document.body.innerHTML = `
+    <div class="final-screen">
+      <div class="final-content">
+        <h1>
+          ¡Sabía que ibas a decir que sí! 😏💕
+        </h1>
+        <p>
+          (el botón "No" nunca fue una opción real)<br><br>
+          Ahora en serio...<br>
+          Prometo hacerte reír hasta con mis chistes malos,<br>
+          estar ahí cuando me necesites,<br>
+          sorprenderte con detalles random,<br>
+          molestarte con cariño (obvio),<br>
+          y hacer que estar conmigo<br>
+          sea tu parte favorita del día 🌹<br><br>
+          <small>PD: Ya eres mi San Valentín, no hay reversa 😄💖</small>
+        </p>
+      </div>
+    </div>`;
+    
+    const newMusic = document.createElement('audio');
+    newMusic.src = music.src;
+    newMusic.loop = true;
+    newMusic.volume = 0.3;
+    newMusic.play();
+    
+    setInterval(createConfetti, 3000);
+  }, 1000);
+}
+</script>
+
+</body>
+</html>
